@@ -13,6 +13,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use romanzipp\Seo\Structs\Meta;
 
 class OrganizationController extends Controller
 {
@@ -66,6 +67,8 @@ class OrganizationController extends Controller
 
     public function list(): View
     {
+        seo()->title('Listado de teatros y salas en España');
+
         $organizations = DB::table('organizations')
             ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'slug', 'city',
                 'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state',
@@ -75,6 +78,10 @@ class OrganizationController extends Controller
             ->orderBy('organizations.name')
             ->paginate(10, ['organizations.id']);
 
+        if ($organizations->currentPage() > 1) {
+            seo()->title('Listado de teatros y salas en España página ' . $organizations->currentPage());
+        }
+
         return view('organization.list', compact('organizations'));
     }
 
@@ -82,12 +89,21 @@ class OrganizationController extends Controller
     {
         $organization = Organization::firstWhere('slug', $slug);
 
+        seo()->title($organization->name);
+        seo()->description('Ficha de contacto de ' . $organization->name);
+
+        if ($organization->image) {
+            seo()->image($organization->image);
+        }
+
         return view('organization.view', compact('organization'));
     }
 
     public function search(Request $search): View
     {
         $searchTerm = trim($search->post('term'));
+
+        seo()->title('Resultados para ' . $searchTerm);
 
         $organizations = Organization::query()
             ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'slug', 'city',
@@ -133,6 +149,8 @@ class OrganizationController extends Controller
             ->paginate(10, ['id']);
 
         $searchTerm = $organizations->first()->$searchField;
+
+        seo()->title('Teatros de ' . $searchTerm);
 
         return view('organization.list',
             [
