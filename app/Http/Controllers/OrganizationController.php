@@ -59,15 +59,21 @@ class OrganizationController extends Controller
         ];
     }
 
+    // @ToDo set the SEO via helper or Middleware
+
     public function index(): View
     {
-        /* @TODO front page */
-        return view('backend.index');
+        seo()->title('Inthedir: Directorio teatral');
+        seo()->description('Directorio de teatros y salas alternativas en España');
+        seo()->image('/images/inthedir.png');
+
+        return view('home');
     }
 
     public function list(): View
     {
-        seo()->title('Listado de teatros y salas en España');
+        seo()->title('Teatros y salas en España');
+        seo()->description('Listado organizado de salas de teatro en España con datos de contacto.');
 
         $organizations = DB::table('organizations')
             ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'slug', 'city',
@@ -151,6 +157,7 @@ class OrganizationController extends Controller
         $searchTerm = $organizations->first()->$searchField;
 
         seo()->title('Teatros de ' . $searchTerm);
+        seo()->description('Listado de teatros y salas de ' . $searchTerm);
 
         return view('organization.list',
             [

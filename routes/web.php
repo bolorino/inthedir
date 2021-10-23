@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [OrganizationController::class, 'index']);
 
 Route::get('/escenarios', [OrganizationController::class, 'list'])
 ->name('escenarios');
