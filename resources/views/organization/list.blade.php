@@ -12,37 +12,35 @@
                     <h2 class="text-gray-600 text-2xl font-bold">Lo sentimos, no se han encontrado resultados para {{ $searchTerm }}</h2>
                 @else
                 <div class="my-5shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200">
+                    <table class="w-full divide-y border-collapse divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
                                 Nombre
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
                                 Ciudad
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
                                 Comunidad Autónoma
                             </th>
-                            <th scope="col" class="relative px-6 py-3">
-                                <span class="sr-only">Edit</span>
+                            <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                                @can('edit organizations')
+                                    <span class="sr-only">Edit</span>
+                                @endcan
                             </th>
                         </tr>
                         </thead>
                         <tbody x-max="2">
-                            @php
-                                $rowclass = 'bg-white';
-                            @endphp
-
                             @foreach ($organizations as $organization)
-                                <tr class="{{ $rowclass }}">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                                    <td class="w-full lg:w-auto p-3 whitespace-nowrap text-sm font-medium text-gray-900 border border-b block lg:table-cell lg:static">
                                         <strong><a href="{{ route('frontend.view', $organization->slug) }}">{{ $organization->name }}</a></strong>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="w-full lg:w-auto p-3 whitespace-nowrap text-sm text-gray-500 border border-b block lg:table-cell lg:static">
                                         <a href="{{ route('escenarios.filter', ['province', $organization->province_id]) }}">{{ $organization->province }}</a>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="w-full lg:w-auto p-3 whitespace-nowrap text-sm text-gray-500 border border-b block lg:table-cell lg:static">
                                         <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                             @switch ($organization->state)
                                                 @case('Andalucía')
@@ -68,7 +66,7 @@
                                             <a href="{{ route('escenarios.filter', ['state', $organization->id_state]) }}">{{ $organization->state }}</a>
                                         </p>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <td class="w-full lg:w-auto p-3 whitespace-nowrap text-right text-sm font-medium border border-b block lg:table-cell lg:static">
                                         @can('edit organizations')
                                             <div class="ml-2 flex-shrink-0 flex">
                                                 <a href="{{ route('organization.edit', $organization->organization_id) }}"
@@ -79,10 +77,6 @@
                                         @endcan
                                     </td>
                                 </tr>
-                                @php
-                                    if ($rowclass == 'bg-white') $rowclass = 'bg-gray-50';
-                                    else $rowclass = 'bg-white';
-                                @endphp
                             @endforeach
                         </tbody>
                     </table>
