@@ -36,29 +36,6 @@ Route::group(['middleware' => ['auth','verified']], function ()
     Route::get('/dashboard', function () {
         return view('backend.index');
     })->name('dashboard');
-    /*
-    Route::get('/dashboard/organizations', [BackendOrganizationController::class, 'list'])
-        ->name('organization.list');
-    Route::get('/dashboard/organization/{id}', [BackendOrganizationController::class, 'view'])
-        ->name('organization.view');
-
-    Route::get('/dashboard/organization-create', [BackendOrganizationController::class, 'create'])
-        ->name('organization.create');
-    Route::post('/dashboard/organization-store', [BackendOrganizationController::class, 'store'])
-        ->name('organization.store');
-
-    Route::get('/dashboard/organization-edit/{organization}', [BackendOrganizationController::class, 'edit'])
-        ->name('organization.edit');
-    Route::put('/dashboard/organization-update/{organization}', [BackendOrganizationController::class, 'update'])
-        ->name('organization.update');
-    */
-
-    Route::post('/dashboard/organization-search', [BackendOrganizationController::class, 'search'])
-        ->name('organization.search');
-
-    Route::get('/dashboard/organizations-filter/{field}/{filter}', [BackendOrganizationController::class, 'filter'])
-        ->name('organizations.filter');
-
 });
 
 Route::group(['middleware' => ['auth', 'role:editor|super-admin']], function ()
@@ -93,6 +70,8 @@ Route::group(['middleware' => ['auth', 'role:super-admin']], function ()
     Route::put('/dashboard/permission-update/{id}', 'RolePermissionController@updatePermission')->name('permission.update');
 
     Route::resource('/dashboard/assignrole', 'App\Http\Controllers\RoleAssign');
+
+    Route::resource('/dashboard/user', 'App\Http\Controllers\UserController');
 });
 
 require __DIR__.'/auth.php';
