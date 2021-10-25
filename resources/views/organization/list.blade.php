@@ -19,7 +19,10 @@
                                 Nombre
                             </th>
                             <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
-                                Ciudad
+                                Municipio
+                            </th>
+                            <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+                                Provincia
                             </th>
                             <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
                                 Comunidad Autónoma
@@ -36,6 +39,9 @@
                                 <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                                     <td class="w-full lg:w-auto p-3 whitespace-nowrap text-sm font-medium text-gray-900 border border-b block lg:table-cell lg:static">
                                         <strong><a href="{{ route('frontend.view', $organization->slug) }}">{{ $organization->name }}</a></strong>
+                                    </td>
+                                    <td class="w-full lg:w-auto p-3 whitespace-nowrap text-sm text-gray-500 border border-b block lg:table-cell lg:static">
+                                        {{ $organization->city }}
                                     </td>
                                     <td class="w-full lg:w-auto p-3 whitespace-nowrap text-sm text-gray-500 border border-b block lg:table-cell lg:static">
                                         <a href="{{ route('escenarios.filter', ['province', $organization->province_id]) }}">{{ $organization->province }}</a>
@@ -61,6 +67,9 @@
                                                 @case('Canarias')
                                                     bg-yellow-300 text-blue-800
                                                 @break
+                                                @case('Cantabria')
+                                                    bg-red-600 text-white
+                                                @break
                                             @endswitch
                                         ">
                                             <a href="{{ route('escenarios.filter', ['state', $organization->id_state]) }}">{{ $organization->state }}</a>
@@ -85,6 +94,5 @@
                 {{ $organizations->links() }}
             </div>
         </div>
-
     </div>
 </x-guest-layout>
