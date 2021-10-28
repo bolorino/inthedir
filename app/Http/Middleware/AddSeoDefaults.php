@@ -24,10 +24,8 @@ class AddSeoDefaults
         seo()->charset();
         seo()->viewport();
 
-        seo()->title('Home');
+        seo()->title('Inthedir');
         seo()->description('Directorio de teatros y salas');
-
-        // seo()->csrfToken();
 
         seo()->addMany([
 

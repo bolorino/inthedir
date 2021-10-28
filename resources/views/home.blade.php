@@ -30,7 +30,8 @@
         </div>
 
         <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            Este proyecto está actualmente en fase ßeta.
+            Este proyecto está actualmente en fase ßeta. <br>
+            Actualmente hay {{ $totalRegisters }} registros
         </p>
 
     </div>

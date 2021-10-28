@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -25,12 +26,14 @@ class Organization extends Model
         'logo'
     ];
 
+    // protected $with = 'province:id, name';
+
     public function province(): HasOne
     {
         return $this->hasOne(Province::class, 'id', 'province_id');
     }
 
-    public function provinceAndState(): Organization
+    public function provinceAndState(): Builder
     {
         return $this->whereHasMorph('organizations', [Province::class, State::class]);
     }

@@ -70,6 +70,12 @@
                                                 @case('Cantabria')
                                                     bg-red-600 text-white
                                                 @break
+                                                @case('Castilla - La Mancha')
+                                                    bg-red-900 text-white
+                                                @break
+                                                @case('Extremadura')
+                                                    bg-green-600 text-white
+                                                @break
                                             @endswitch
                                         ">
                                             <a href="{{ route('escenarios.filter', ['state', $organization->id_state]) }}">{{ $organization->state }}</a>

@@ -61,34 +61,38 @@ class OrganizationController extends Controller
 
     // @ToDo set the SEO via helper or Middleware
 
-    public function index(): View
+    public function index()
     {
         seo()->title('Inthedir: Directorio teatral');
         seo()->description('Directorio de teatros y salas alternativas en España');
         seo()->image('/images/inthedir.png');
 
-        return view('home');
+        $totalRegisters = Organization::count();
+
+        return view('home', compact('totalRegisters'));
     }
 
-    public function list(): View
+    public function list()
     {
         seo()->title('Teatros y salas en España');
         seo()->description('Listado organizado de salas de teatro en España con datos de contacto.');
-
+        /*
         $organizations = DB::table('organizations')
             ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'slug', 'city',
                 'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state',
                 'image', 'logo'])
             ->join('provinces', 'province_id', '=', 'provinces.id')
             ->join('states', 'provinces.id_state', '=', 'states.id')
-            ->orderBy('organizations.name')
-            ->paginate(10, ['organizations.id']);
-
+            ->orderBy('organizations.name');
+            // ->paginate(10, ['organizations.id']);
+        */
+        /*
         if ($organizations->currentPage() > 1) {
             seo()->title('Listado de teatros y salas en España página ' . $organizations->currentPage());
         }
+        */
 
-        return view('organization.list', compact('organizations'));
+        return view('organization.livelist');
     }
 
     public function viewBySlug(string $slug): View
