@@ -5,7 +5,8 @@
 /vendor
 .env
 .env.backup
-composer.lock
+docker-compose.yml
+phpunit.xml
 .phpunit.result.cache
 docker-compose.override.yml
 npm-debug.log
