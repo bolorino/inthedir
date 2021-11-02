@@ -3,7 +3,7 @@ set -e
 echo "Deploying application ..."
 
 # Enter maintenance mode
-(php artisan down --message 'Inthedir se está actualizando. Por favor, vuelve a intentarlo en unos minutos.') || true
+(php artisan down) || true
 
 # Update codebase
 git fetch origin deploy
