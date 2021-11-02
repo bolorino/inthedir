@@ -6,9 +6,10 @@
 .env
 .env.backup
 docker-compose.yml
+docker-compose.override.yml
+deploy.sh
 phpunit.xml
 .phpunit.result.cache
-docker-compose.override.yml
 npm-debug.log
 yarn-error.log
 /.idea
