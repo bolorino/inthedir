@@ -41,7 +41,7 @@
             </p>
         </div>
     </footer>
-    @livewire('livewire-ui-modal')
     @livewireScripts
+    @livewire('livewire-ui-modal')
     </body>
 </html>
