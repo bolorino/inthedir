@@ -28,7 +28,6 @@
                 {{ $header ?? '' }}
             </div>
         </header>
-
         <!-- Page Content -->
         <main>
             <x-flash-messages />
