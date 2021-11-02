@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          repository: 'bolorino/inthedir'
           token: ${{ secrets.PUSH_TOKEN }}
       - name: Set up Node
         uses: actions/setup-node@v1
