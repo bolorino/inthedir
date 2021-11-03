@@ -26,7 +26,7 @@ class OrganizationPostRequest extends FormRequest
         return [
             'name' => 'required|max:140',
             'province_id' => 'required|digits_between:1,52',
-            'type_id' => 'exists:organizations_types,id',
+            'type_id' => 'exists:organization_types,id',
             'address' => 'required|max:200',
             'address_2' => 'nullable|max:200',
             'city' => 'required|max:90',
