@@ -6,6 +6,7 @@ module.exports = {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './vendor/wire-elements/modal/resources/views/*.blade.php',
+        './vendor/wire-elements/modal/resources/js/*.js',
         './storage/framework/views/*.php',
     ],
     options: {
