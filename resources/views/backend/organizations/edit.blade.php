@@ -27,7 +27,7 @@
                                 <x-form-select name="type_id" label="Tipo">
                                     <option value="">Selecciona el tipo de organización</option>
                                     @foreach ($types as $type)
-                                        <option @if($type->id == old('type', $organization->type->id)) selected  @endif value="{{ $type->id }}">{{ $type->name }}</option>
+                                        <option @if($type->id == old('type_id', $organization->type->id)) selected  @endif value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </x-form-select>
                             </div>
@@ -47,7 +47,7 @@
                                 <x-form-select name="province_id" label="Provincia">
                                     <option value="">Selecciona la provincia</option>
                                     @foreach ($provinces as $province)
-                                        <option @if($province->id == old('province', $organization->province->id)) selected  @endif value="{{ $province->id }}">{{ $province->province }}</option>
+                                        <option @if($province->id == old('province_id', $organization->province->id)) selected  @endif value="{{ $province->id }}">{{ $province->province }}</option>
                                     @endforeach
                                 </x-form-select>
                             </div>
