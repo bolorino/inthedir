@@ -76,6 +76,9 @@ class OrganizationsTable extends DataTableComponent
 
     public function query(): Builder
     {
+        /**
+         * @TODO type filter
+         */
         return Organization::query()
             ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'slug', 'city',
                 'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state'])
