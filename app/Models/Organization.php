@@ -14,6 +14,7 @@ class Organization extends Model
     protected $fillable = [
         'name',
         'province_id',
+        'type_id',
         'slug',
         'address',
         'address_2',
@@ -36,6 +37,11 @@ class Organization extends Model
     public function provinceAndState(): Builder
     {
         return $this->whereHasMorph('organizations', [Province::class, State::class]);
+    }
+
+    public function type(): HasOne
+    {
+        return $this->hasOne(OrganizationType::class, 'id', 'type_id');
     }
 
     public function setNameAttribute(string $name)

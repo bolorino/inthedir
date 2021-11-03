@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrganizationPostRequest;
 use App\Models\Organization;
+use App\Models\OrganizationType;
 use App\Models\Province;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,11 +21,19 @@ class OrganizationController extends Controller
     use HandlesAuthorization;
 
     /**
+     * Available provinces from model
      * @var Collection
      */
     private Collection $provinces;
 
     /**
+     * Available organization types from model
+     * @var Collection
+     */
+    private Collection $organizationTypes;
+
+    /**
+     * Allowed fields to filter results
      * @var array
      */
     private array $allowedFields;
@@ -41,6 +50,14 @@ class OrganizationController extends Controller
     public function setProvinces(Collection $provinces): void
     {
         $this->provinces = $provinces;
+    }
+
+    /**
+     * @param Collection $organizationTypes
+     */
+    public function setOrganizationTypes(Collection $organizationTypes): void
+    {
+        $this->organizationTypes = $organizationTypes;
     }
 
     public function setAllowedFields()
@@ -76,21 +93,6 @@ class OrganizationController extends Controller
     {
         seo()->title('Teatros y salas en España');
         seo()->description('Listado organizado de salas de teatro en España con datos de contacto.');
-        /*
-        $organizations = DB::table('organizations')
-            ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'slug', 'city',
-                'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state',
-                'image', 'logo'])
-            ->join('provinces', 'province_id', '=', 'provinces.id')
-            ->join('states', 'provinces.id_state', '=', 'states.id')
-            ->orderBy('organizations.name');
-            // ->paginate(10, ['organizations.id']);
-        */
-        /*
-        if ($organizations->currentPage() > 1) {
-            seo()->title('Listado de teatros y salas en España página ' . $organizations->currentPage());
-        }
-        */
 
         return view('organization.livelist');
     }
@@ -176,10 +178,17 @@ class OrganizationController extends Controller
 
         $this->setProvinces(Province::select(['id', 'id_state', 'province'])
             ->orderBy('id')
-            ->get());
+            ->get()
+        );
+
+        $this->setOrganizationTypes(OrganizationType::select(['id', 'name'])
+            ->orderBy('id')
+            ->get()
+        );
 
         return view('backend.organizations.create', [
-            'provinces' => $this->provinces
+            'provinces' => $this->provinces,
+            'types' => $this->organizationTypes
         ]);
     }
 
@@ -195,6 +204,7 @@ class OrganizationController extends Controller
         Organization::create([
             'name' => $request->name,
             'province_id' => $request->province_id,
+            'type_id' => $request->type_id,
             'address' => $request->address,
             'address_2' => $request->address_2,
             'city' => $request->city,
@@ -214,10 +224,18 @@ class OrganizationController extends Controller
 
         $this->setProvinces(Province::select(['id', 'id_state', 'province'])
             ->orderBy('id')
-            ->get());
+            ->get()
+        );
+
+        $this->setOrganizationTypes(OrganizationType::select(['id', 'name'])
+            ->orderBy('id')
+            ->get()
+        );
 
         return view('backend.organizations.edit', [
-            'provinces' => $this->provinces, 'organization' => $organization
+            'provinces' => $this->provinces,
+            'types' => $this->organizationTypes,
+            'organization' => $organization
         ]);
     }
 
@@ -237,6 +255,7 @@ class OrganizationController extends Controller
         $organization->update([
             'name' => $request->name,
             'province_id' => $request->province_id,
+            'type_id' => $request->type_id,
             'address' => $request->address,
             'address_2' => $request->address_2,
             'city' => $request->city,

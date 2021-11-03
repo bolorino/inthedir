@@ -23,6 +23,14 @@
                             <x-form-input name="name" label="Nombre de la organización" value="{{ old('name') }}" />
                         </div>
                         <div class="block mt-4">
+                            <x-form-select name="type_id" label="Tipo">
+                                <option value="">Selecciona el tipo de organización</option>
+                                @foreach ($types as $type)
+                                    <option @if($type->id == old('type')) selected  @endif value="{{ $type->id }}">{{ $type->name }}</option>
+                                @endforeach
+                            </x-form-select>
+                        </div>
+                        <div class="block mt-4">
                             <x-form-input name="address" label="Dirección (línea 1)" value="{{ old('address') }}" />
                         </div>
                         <div class="block mt-4">
