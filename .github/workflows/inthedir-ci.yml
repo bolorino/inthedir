@@ -33,4 +33,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: 'cd /var/www/inthedir_com && ./server_deploy.sh'
+          script: 'cd /var/www/inthedir_com && chmod 700 ./server_deploy.sh && ./server_deploy.sh'
