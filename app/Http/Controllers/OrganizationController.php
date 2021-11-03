@@ -11,10 +11,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
-use romanzipp\Seo\Structs\Meta;
+use \Illuminate\Contracts\View\View;
 
 class OrganizationController extends Controller
 {
@@ -38,10 +36,20 @@ class OrganizationController extends Controller
      */
     private array $allowedFields;
 
+    /**
+     * Main image or organization logo
+     * @var array
+     */
     private array $imageTypes;
 
+    /**
+     * @var string|null
+     */
     private ?string $image = null;
 
+    /**
+     * @var string|null
+     */
     private ?string $logo = null;
 
     /**
@@ -78,7 +86,7 @@ class OrganizationController extends Controller
 
     // @ToDo set the SEO via helper or Middleware
 
-    public function index()
+    public function index(): View
     {
         seo()->title('Inthedir: Directorio teatral');
         seo()->description('Directorio de teatros y salas alternativas en España');
@@ -89,7 +97,7 @@ class OrganizationController extends Controller
         return view('home', compact('totalRegisters'));
     }
 
-    public function list()
+    public function list(): View
     {
         seo()->title('Teatros y salas en España');
         seo()->description('Listado organizado de salas de teatro en España con datos de contacto.');
@@ -174,8 +182,6 @@ class OrganizationController extends Controller
 
     public function create(): View
     {
-        //$this->authorize('create', Organization::class);
-
         $this->setProvinces(Province::select(['id', 'id_state', 'province'])
             ->orderBy('id')
             ->get()
@@ -221,7 +227,6 @@ class OrganizationController extends Controller
 
     public function edit(Organization $organization): View
     {
-
         $this->setProvinces(Province::select(['id', 'id_state', 'province'])
             ->orderBy('id')
             ->get()
@@ -271,6 +276,7 @@ class OrganizationController extends Controller
     }
 
     /**
+     * Checks a valid image type is passed and set a proper filename
      * @param Request $request
      * @param string $type
      * @return bool
