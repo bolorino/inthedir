@@ -80,8 +80,9 @@ class OrganizationsTable extends DataTableComponent
          * @TODO type filter
          */
         return Organization::query()
-            ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'slug', 'city',
+            ->select(['organizations.id AS organization_id', 'province_id', 'type_id', 'organizations.name', 'slug', 'city',
                 'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state'])
+            ->where('type_id', '=', '1')
             ->join('provinces', 'province_id', '=', 'provinces.id')
             ->join('states', 'provinces.id_state', '=', 'states.id');
     }

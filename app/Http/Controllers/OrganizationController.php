@@ -12,7 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use \Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\View;
 
 class OrganizationController extends Controller
 {
