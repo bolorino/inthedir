@@ -47,7 +47,7 @@ class OrganizationsTable extends DataTableComponent
     {
         return [
             Column::make('Teatro', 'name')
-                //->sortable()
+                ->sortable()
                 ->searchable()
                 ->format(function ($value, $column, $row) {
                     return view('organization.datatables.name', compact('row'));
@@ -58,15 +58,13 @@ class OrganizationsTable extends DataTableComponent
                 ->searchable()
                 ->addClass('p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'),
             Column::make('Provincia', 'province')
-                // @ToDo Sorting needs group by province
-                /*->sortable(function(Builder $query, string $direction) {
-                    return $query->orderBy(Organization::select('name')->whereColumn('organizations.province_id', 'provinces.id'), $direction);
-                })*/
+                ->sortable()
                 ->format(function ($value, $column, $row) {
                     return view('organization.datatables.province', compact('row'));
                 })
                 ->addClass('p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'),
             Column::make('Comunidad atónoma', 'state')
+                ->sortable()
                 ->format(function ($value, $column, $row) {
                     return view('organization.datatables.state', compact('row'));
                 })
