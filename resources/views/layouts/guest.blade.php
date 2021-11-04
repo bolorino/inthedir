@@ -34,9 +34,9 @@
             {{ $slot }}
         </main>
     </div>
-    <footer class="bg-white">
+    <footer class="bg-gray-800">
         <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
-            <p class="mt-8 text-center text-base text-gray-400">
+            <p class="mt-8 text-center text-xs text-gray-300">
                 © 2021 <a href="https://www.bolorino.net/">@bolorino</a>
             </p>
         </div>
