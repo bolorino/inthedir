@@ -54,17 +54,21 @@ class OrganizationsTable extends DataTableComponent
                 })
                 ->addClass('p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'),
             Column::make('Municipio', 'city')
-                //->sortable()
                 ->searchable()
                 ->addClass('p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'),
             Column::make('Provincia', 'province')
                 ->sortable()
+                ->searchable()
                 ->format(function ($value, $column, $row) {
                     return view('organization.datatables.province', compact('row'));
                 })
                 ->addClass('p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'),
             Column::make('Comunidad atónoma', 'state')
                 ->sortable()
+                /**
+                 * @TODO Needs to sort the relation organization->province->state
+                 */
+                //->searchable()
                 ->format(function ($value, $column, $row) {
                     return view('organization.datatables.state', compact('row'));
                 })
