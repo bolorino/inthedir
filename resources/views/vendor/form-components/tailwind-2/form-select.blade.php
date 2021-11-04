@@ -14,7 +14,7 @@
             @endif
 
             {!! $attributes->merge([
-                'class' => ($label ? 'mt-1' : '') . ' block w-full py-3 pl-4 pr-8 bg-white border border-gray-300 rounded-sm appearance-none cursor-pointer focus:outline-none hover:border-gray-400'
+                'class' => ($label ? 'mt-1' : '') . ' block w-full py-3 pl-4 pr-8 bg-white border border-gray-300 rounded-sm appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent hover:border-red-400'
             ]) !!}>
             @forelse($options as $key => $option)
                 <option value="{{ $key }}" @if($isSelected($key)) selected="selected" @endif>
