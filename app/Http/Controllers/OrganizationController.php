@@ -86,16 +86,7 @@ class OrganizationController extends Controller
 
     // @ToDo set the SEO via helper or Middleware
 
-    public function index(): View
-    {
-        seo()->title('Inthedir: Directorio teatral');
-        seo()->description('Directorio de teatros y salas alternativas en España');
-        seo()->image('/images/inthedir.png');
 
-        $totalRegisters = Organization::count();
-
-        return view('home', compact('totalRegisters'));
-    }
 
     public function list(): View
     {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\BackendOrganizationController;
 use App\Http\Controllers\RolePermissionController;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [OrganizationController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/escenarios', [OrganizationController::class, 'list'])
 ->name('escenarios');
@@ -30,6 +31,13 @@ Route::post('/escenarios/buscar', [OrganizationController::class, 'search'])
 
 Route::get('/escenarios/{field}/{filter}', [OrganizationController::class, 'filter'])
     ->name('escenarios.filter');
+
+Route::group(['middleware' => 'auth'], function ()
+{
+    Route::get('/approval', function() {
+        return view('approval');
+    })->name('approval');
+});
 
 Route::group(['middleware' => ['auth','verified']], function ()
 {
