@@ -30,6 +30,9 @@
                             <x-form-input name="password_update" label="Contraseña" value=""/>
                         </div>
                         <div class="block mt-4">
+                            <x-form-checkbox name="enabled" label="Aprobado" :default="$user->enabled"/>
+                        </div>
+                        <div class="block mt-4">
                             <x-form-submit>{{ 'Actualizar usuario' }}</x-form-submit>
                         </div>
                     </x-form>

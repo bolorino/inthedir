@@ -14,7 +14,8 @@ class AddStatusToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('auth')->default(0);
+            $table->boolean('enabled')->default(0);
+            $table->timestamp('approved_at')->nullable();
         });
     }
 
@@ -26,7 +27,8 @@ class AddStatusToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('auth');
+            $table->dropColumn('enabled');
+            $table->dropColumn('approved_at');
         });
     }
 }

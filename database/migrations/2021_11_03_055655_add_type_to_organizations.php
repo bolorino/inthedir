@@ -14,7 +14,7 @@ class AddTypeToOrganizations extends Migration
     public function up()
     {
         Schema::table('organizations', function (Blueprint $table) {
-            $table->foreignId('type_id')->after('province_id')->constrained('types');
+            $table->foreignId('type_id')->after('province_id')->default(1)->constrained('organization_types');
         });
     }
 

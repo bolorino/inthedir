@@ -22,10 +22,20 @@ class UserController extends Controller
 
     public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
+        $enabled = 0;
+        $approved_at = null;
+
+        if ($request->enabled === '1') {
+            $enabled = 1;
+            $approved_at = now();
+        }
+
         $user->update([
             'name'       => $request->name,
             'email'      => $request->email,
-            'password'   => ($request->has('password_update') && ! empty($request->password_update) ? Hash::make($request->password_update) : $user->password)
+            'password'   => ($request->has('password_update') && ! empty($request->password_update) ? Hash::make($request->password_update) : $user->password),
+            'enabled'    => $enabled,
+            'approved_at' => $approved_at,
         ]);
 
         return redirect()->route('user.index');
