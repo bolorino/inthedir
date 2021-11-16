@@ -26,16 +26,18 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'publish organizations']);
         Permission::create(['name' => 'unpublish organizations']);
 
+        Permission::create(['name' => 'edit users']);
+
         Permission::create(['name' => 'assign roles']);
 
         // create roles and assign created permissions
 
-        // this can be done as separate statements
+        $role = Role::create(['name' => 'super-admin']);
+
+        $role->givePermissionTo(Permission::all());
+
         $role = Role::create(['name' => 'editor'])
             ->givePermissionTo(['edit organizations', 'publish organizations']);
-
-        $role = Role::create(['name' => 'super-admin']);
-        $role->givePermissionTo(Permission::all());
 
         // Assign super-admin to User 1
         $user = User::find(1);

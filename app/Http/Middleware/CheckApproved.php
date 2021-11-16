@@ -10,13 +10,13 @@ class CheckApproved
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->user()->auth) {
+        if (!auth()->user()->approved_at) {
             return redirect()->route('approval');
         }
 

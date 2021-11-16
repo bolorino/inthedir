@@ -20,6 +20,11 @@
                             {{ __('Añadir nueva') }}
                         </x-nav-link>
                     @endcan
+                    @can('edit users')
+                        <x-nav-link :href="'/dashboard/user'" :active="request()->routeIs('/dashboard/user')">
+                            {{ __('Editar usuarios') }}
+                        </x-nav-link>
+                    @endcan
                     @can('assign roles')
                         <x-nav-link :href="'/dashboard/assignrole'" :active="request()->routeIs('/dashboard/assignrole')">
                             {{ __('Asignar roles') }}

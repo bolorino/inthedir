@@ -7,17 +7,6 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\RoleAssign;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/escenarios', [OrganizationController::class, 'list'])
@@ -32,14 +21,9 @@ Route::post('/escenarios/buscar', [OrganizationController::class, 'search'])
 Route::get('/escenarios/{field}/{filter}', [OrganizationController::class, 'filter'])
     ->name('escenarios.filter');
 
-Route::group(['middleware' => 'auth'], function ()
-{
-    Route::get('/approval', function() {
-        return view('approval');
-    })->name('approval');
-});
+Route::get('/approval', [HomeController::class, 'approve'])->name('approval');
 
-Route::group(['middleware' => ['auth','verified']], function ()
+Route::group(['middleware' => ['auth','verified', 'approved']], function ()
 {
     Route::get('/dashboard', function () {
         return view('backend.index');
