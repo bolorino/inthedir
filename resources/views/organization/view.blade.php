@@ -30,6 +30,12 @@
                             {{ $organization->phone }} <br>
                         @endif
 
+                        @can('view data')
+                            @if($organization->email)
+                                {{ $organization->email }} <br>
+                            @endif
+                        @endcan
+
                         @if($organization->website)
                             <a href="{{ $organization->website }}" class="inline-flex items-center font-semibold transition-colors duration-200 text-red-600 hover:text-red-400">{{ $organization->website = preg_replace('#^https?://#', '', rtrim($organization->website,'/')) }}</a> <br>
                         @endif

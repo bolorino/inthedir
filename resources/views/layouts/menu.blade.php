@@ -11,7 +11,9 @@
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             <a href="{{ route('escenarios') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Teatros</a>
-                            <!--<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Ayuntamientos</a>-->
+                            @can('view data')
+                                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Ayuntamientos</a>
+                            @endcan
                             @role('super-admin|editor')
                                 <a href="{{ route('dashboard') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Panel</a>
                             @endrole

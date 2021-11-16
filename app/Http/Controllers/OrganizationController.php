@@ -86,8 +86,6 @@ class OrganizationController extends Controller
 
     // @ToDo set the SEO via helper or Middleware
 
-
-
     public function list(): View
     {
         seo()->title('Teatros y salas en España');

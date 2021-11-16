@@ -21,13 +21,18 @@ class RolesAndPermissionsSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
+
+        // View extra data for registered users
+        Permission::create(['name' => 'view data']);
+
+        // Organizations CRUD
         Permission::create(['name' => 'edit organizations']);
         Permission::create(['name' => 'delete organizations']);
         Permission::create(['name' => 'publish organizations']);
         Permission::create(['name' => 'unpublish organizations']);
 
+        // Users and roles
         Permission::create(['name' => 'edit users']);
-
         Permission::create(['name' => 'assign roles']);
 
         // create roles and assign created permissions
@@ -36,8 +41,11 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $role->givePermissionTo(Permission::all());
 
-        $role = Role::create(['name' => 'editor'])
+        Role::create(['name' => 'editor'])
             ->givePermissionTo(['edit organizations', 'publish organizations']);
+
+        Role::create(['name' => 'user'])
+            ->givePermissionTo(['view data']);
 
         // Assign super-admin to User 1
         $user = User::find(1);
