@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\OrganizationTypeController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,9 @@ Route::post('/escenarios/buscar', [OrganizationController::class, 'search'])
 
 Route::get('/escenarios/{field}/{filter}', [OrganizationController::class, 'filter'])
     ->name('escenarios.filter');
+
+Route::get('/categoria/{slug_plural}', [OrganizationTypeController::class, 'list' ])
+    ->name('categoria');
 
 /**
  * Registration and verification

@@ -9,7 +9,7 @@ class OrganizationType extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'name_plural', 'slug_plural'];
 
     public function organization(): HasMany
     {

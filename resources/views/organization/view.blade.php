@@ -18,6 +18,7 @@
                     @if($organization->logo)
                         <img alt="{{ $organization->name }} logo" class="max-w-full" src="{{asset('storage/' . $organization->logo)}}">
                     @endif
+
                     <p class="mt-4 text-lg leading-relaxed text-blueGray-500">
                         {{ $organization->city }} <br>
                         {{ $organization->address }} <br>
