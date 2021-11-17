@@ -52,20 +52,22 @@ class OrganizationController extends Controller
      */
     private ?string $logo = null;
 
-    /**
-     * @param Collection $provinces
-     */
-    public function setProvinces(Collection $provinces): void
+    public function setProvinces(): void
     {
-        $this->provinces = $provinces;
+        if (!isset($this->provinces)) {
+            $this->provinces = Province::select(['id', 'id_state', 'province'])
+                ->orderBy('id')
+                ->get();
+        }
     }
 
-    /**
-     * @param Collection $organizationTypes
-     */
-    public function setOrganizationTypes(Collection $organizationTypes): void
+    public function setOrganizationTypes(): void
     {
-        $this->organizationTypes = $organizationTypes;
+        if (!isset($this->organizationTypes)) {
+            $this->organizationTypes = OrganizationType::select(['id', 'name'])
+                ->orderBy('id')
+                ->get();
+        }
     }
 
     public function setAllowedFields()
@@ -171,15 +173,9 @@ class OrganizationController extends Controller
 
     public function create(): View
     {
-        $this->setProvinces(Province::select(['id', 'id_state', 'province'])
-            ->orderBy('id')
-            ->get()
-        );
+        $this->setProvinces();
 
-        $this->setOrganizationTypes(OrganizationType::select(['id', 'name'])
-            ->orderBy('id')
-            ->get()
-        );
+        $this->setOrganizationTypes();
 
         return view('backend.organizations.create', [
             'provinces' => $this->provinces,
@@ -216,15 +212,9 @@ class OrganizationController extends Controller
 
     public function edit(Organization $organization): View
     {
-        $this->setProvinces(Province::select(['id', 'id_state', 'province'])
-            ->orderBy('id')
-            ->get()
-        );
+        $this->setProvinces();
 
-        $this->setOrganizationTypes(OrganizationType::select(['id', 'name'])
-            ->orderBy('id')
-            ->get()
-        );
+        $this->setOrganizationTypes();
 
         return view('backend.organizations.edit', [
             'provinces' => $this->provinces,
