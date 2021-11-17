@@ -10,8 +10,6 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\View\View;
 
 class OrganizationController extends Controller

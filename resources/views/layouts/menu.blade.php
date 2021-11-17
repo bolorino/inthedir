@@ -10,9 +10,9 @@
                     <div class="hidden lg:block lg:ml-6">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="{{ route('escenarios') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Teatros</a>
+                            <a href="{{ route('categoria', 'teatros') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Teatros</a>
                             @can('view data')
-                                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Ayuntamientos</a>
+                                <a href="{{ route('categoria', 'ayuntamientos') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Ayuntamientos</a>
                             @endcan
                             @role('super-admin|editor')
                                 <a href="{{ route('dashboard') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Panel</a>
@@ -55,7 +55,10 @@
         <div x-description="Mobile menu, toggle classes based on menu state." x-state:on="Menu open" x-state:off="Menu closed" :class="{ 'block': open, 'hidden': !open }" class="hidden lg:hidden">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="{{ route('escenarios') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Teatros</a>
+                <a href="{{ route('categoria', 'teatros') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Teatros</a>
+                @can('view data')
+                    <a href="{{ route('categoria', 'ayuntamientos') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Ayuntamientos</a>
+                @endcan
                 <!--<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Ayuntamientos</a>-->
             </div>
         </div>

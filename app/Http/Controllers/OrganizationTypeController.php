@@ -18,20 +18,23 @@ class OrganizationTypeController extends Controller
 
     private Collection $allowedTypes;
 
+    public function __construct()
+    {
+        $this->setAllowedTypes();
+    }
+
     public function setAllowedTypes(): void
     {
         \Log::info('Entering setAllowedTypes');
         if (!isset($this->allowedTypes)) {
             \Log::info('Set allowedTypes from DB');
-            $this->allowedTypes = OrganizationType::select(['id', 'slug_plural'])
+            $this->allowedTypes = OrganizationType::select(['id', 'name_plural', 'slug_plural'])
             ->get();
         }
     }
 
     public function list(string $type): View|\Illuminate\Http\Response
     {
-        $this->setAllowedTypes();
-
         if (!$this->allowedTypes->contains('slug_plural', $type)) {
            return \response('No encontrado', 404);
         }
@@ -47,7 +50,17 @@ class OrganizationTypeController extends Controller
             ->join('organization_types', 'type_id','=', 'organization_types.id')
             ->where('organization_types.slug_plural', '=', $type)
             ->orderBy('organizations.name')
-            ->paginate(10, ['id']);
+            ->paginate(8, ['id']);
+
+        $searchTerm = $this->allowedTypes->firstWhere('slug_plural', $type);
+        $title = 'Listado de ' . $searchTerm['name_plural'];
+
+        if (\request('page') > 1) {
+            $title .= '. Página ' . \request('page');
+        }
+
+        seo()->title($title);
+        // seo()->description('Listado de teatros y salas de ' . $searchTerm);
 
         return view('organization.nicelist',
             [
