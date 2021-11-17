@@ -9,14 +9,14 @@
         <div class="items-center flex flex-wrap">
             <div class="w-full md:w-4/12 ml-auto mr-auto px-4">
                 @if($organization->image)
-                    <img alt="{{ $organization->name }}" class="max-w-full rounded-lg shadow-lg" src="{{asset('storage/' . $organization->image)}}">
+                    <img alt="{{ $organization->name }}" class="max-w-full rounded-lg shadow-lg" src="{{asset('storage/images/' . $organization->image)}}">
                 @endif
             </div>
             <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
                 <div class="md:pr-12">
                     <h2 class="text-3xl font-semibold mb-2">{{ $organization->name }}</h2>
                     @if($organization->logo)
-                        <img alt="{{ $organization->name }} logo" class="max-w-full" src="{{asset('storage/' . $organization->logo)}}">
+                        <img alt="{{ $organization->name }} logo" class="max-w-full" src="{{asset('storage/images/logos/' . $organization->logo)}}">
                     @endif
 
                     <p class="mt-4 text-lg leading-relaxed text-blueGray-500">

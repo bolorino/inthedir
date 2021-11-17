@@ -82,7 +82,8 @@ class OrganizationController extends Controller
     {
         $this->imageTypes = [
             'image' => 'images',
-            'logo' => 'images/logos'
+            'logo' => 'images/logos',
+            'thumbnail' => 'images/thumbnails'
         ];
     }
 
@@ -274,21 +275,21 @@ class OrganizationController extends Controller
             $fileName .= '-logo';
         }
 
-        $this->$type = $this->saveImage(
-            $request->file($type), $type, $fileName . '.' . $request->file($type)->extension()
+        // Save the image and set the image/logo name for DB
+        $this->$type = saveImage(
+            $request->file($type), $this->imageTypes[$type], $fileName . '.' . $request->file($type)->extension()
         );
+
+        // Also generate thumbnail for main image
+        if ($type == 'image') {
+            saveImage(
+                $request->file($type), $this->imageTypes['thumbnail'], $fileName . '.' . $request->file($type)->extension()
+            );
+            $fullPath = public_path('storage/') . $this->imageTypes['thumbnail'] . '/' . $fileName . '.' . $request->file($type)->extension();
+            createThumbnail($fullPath, 400, 450);
+        }
 
         return true;
     }
 
-    /**
-     * @param UploadedFile $file
-     * @param string $type
-     * @param string $fileName
-     * @return string
-     */
-    private function saveImage(UploadedFile $file, string $type, string $fileName): string
-    {
-        return Storage::disk('public')->putFileAs($this->imageTypes[$type], $file, $fileName);
-    }
 }

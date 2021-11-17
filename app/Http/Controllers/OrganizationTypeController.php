@@ -20,7 +20,9 @@ class OrganizationTypeController extends Controller
 
     public function setAllowedTypes(): void
     {
+        \Log::info('Entering setAllowedTypes');
         if (!isset($this->allowedTypes)) {
+            \Log::info('Set allowedTypes from DB');
             $this->allowedTypes = OrganizationType::select(['id', 'slug_plural'])
             ->get();
         }

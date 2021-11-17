@@ -5,12 +5,12 @@
         </button>
     </span>
     @if($organization->image)
-        <img alt="{{ $organization->name }}" class="w-full h-48 max-h-full md:max-h-screen" src="{{asset('storage/' . $organization->image)}}">
+        <img alt="{{ $organization->name }}" class="w-full h-48 max-h-full md:max-h-screen" src="{{asset('storage/images/' . $organization->image)}}">
     @endif
     <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">{{ $organization->name }}</div>
         @if($organization->logo)
-            <img alt="{{ $organization->name }} logo" class="max-w-md max-h-36" src="{{asset('storage/' . $organization->logo)}}">
+            <img alt="{{ $organization->name }} logo" class="max-w-md max-h-36" src="{{asset('storage/images/logos/' . $organization->logo)}}">
         @endif
         <p class="text-gray-700 text-base">
             {{ $organization->city }} <br>
