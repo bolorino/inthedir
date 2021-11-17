@@ -24,7 +24,39 @@
                             </h3>
                             <p class="text-base text-gray-900 group-hover:text-red-700">
                                 {{ $organization->city }}
-                            </p>
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                @switch ($organization->state)
+                                    @case('Andalucía')
+                                    bg-green-100 text-green-800
+                                    @break
+                                    @case('Aragón')
+                                    bg-red-100 text-red-800
+                                    @break
+                                    @case('Asturias, Principado de')
+                                    bg-blue-100 text-blue-800
+                                    @break
+                                    @case('Balears, Illes')
+                                    bg-yellow-100 text-red-800
+                                    @break
+                                    @case('Catalunya')
+                                    bg-red-800 text-yellow-100
+                                    @break
+                                    @case('Canarias')
+                                    bg-yellow-300 text-blue-800
+                                    @break
+                                    @case('Cantabria')
+                                    bg-red-600 text-white
+                                    @break
+                                    @case('Castilla - La Mancha')
+                                    bg-red-900 text-white
+                                    @break
+                                    @case('Extremadura')
+                                    bg-green-600 text-white
+                                    @break
+                                @endswitch
+                            ">
+                                {{ $organization->state }}
+                            </span>
                         </div>
                     </article>
                 @endforeach

@@ -9,7 +9,7 @@
         <div class="my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-5 px-6 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 @if($organizations->count() == 0)
-                    <h2 class="text-gray-600 text-2xl font-bold">Lo sentimos, no se han encontrado resultados para {{ $searchTerm }}</h2>
+                    <h2 class="text-gray-600 text-2xl font-bold">Lo sentimos, no se han encontrado resultados para {{ $searchTerm ?? '' }}</h2>
                 @else
                 <div class="my-5shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <table class="w-full divide-y border-collapse divide-gray-200">
