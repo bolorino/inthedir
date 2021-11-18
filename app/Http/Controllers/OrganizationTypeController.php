@@ -39,6 +39,8 @@ class OrganizationTypeController extends Controller
            return \response('No encontrado', 404);
         }
 
+        $currentState = false;
+
         $organizations = Organization::query()
             ->select(['organizations.id AS organization_id', 'province_id', 'type_id', 'organizations.name',
                 'image', 'organizations.slug', 'city',
@@ -73,7 +75,9 @@ class OrganizationTypeController extends Controller
 
         return view('organization.nicelist',
             [
-                'organizations' => $organizations
+                'organizations' => $organizations,
+                'category' => $type,
+                'title' => $title
             ]);
     }
 

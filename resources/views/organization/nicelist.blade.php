@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Teatros y espacios escénicos {{ $searchTerm ?? '' }}
+            {{ $title }}
         </h2>
     </x-slot>
 
@@ -26,10 +26,11 @@
                             </h3>
                             <p class="text-base text-gray-900 group-hover:text-red-700">
                                 {{ $organization->city }}
-
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $organization->state_slug }}">
-                                {{ $organization->state }}
-                            </span>
+                                <a href="{{ route('categoria', [$category, $organization->state_slug]) }}">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $organization->state_slug }}">
+                                        {{ $organization->state }}
+                                    </span>
+                                </a>
                         </div>
                     </article>
                 @endforeach
