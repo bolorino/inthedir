@@ -59,6 +59,9 @@
                 @can('view data')
                     <a href="{{ route('categoria', 'ayuntamientos') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Ayuntamientos</a>
                 @endcan
+                @role('super-admin|editor')
+                    <a href="{{ route('dashboard') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Panel</a>
+                @endrole
                 <!--<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Ayuntamientos</a>-->
             </div>
         </div>

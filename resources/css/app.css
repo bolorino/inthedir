@@ -29,3 +29,9 @@
 .extremadura {
     @apply bg-green-600 text-white;
 }
+.galicia {
+    @apply bg-blue-400 text-white;
+}
+.madrid {
+    @apply bg-red-600 text-white;
+}
