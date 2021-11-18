@@ -112,12 +112,15 @@ class OrganizationController extends Controller
     public function search(Request $search): View
     {
         $searchTerm = trim($search->post('term'));
+        $title = 'Resultados para ' . $searchTerm;
 
-        seo()->title('Resultados para ' . $searchTerm);
+        seo()->title($title);
 
         $organizations = Organization::query()
-            ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'slug', 'city',
-                'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state'])
+            ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'organizations.slug',
+                'image', 'city',
+                'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state',
+                'states.slug AS state_slug',])
             ->join('provinces', 'province_id', '=', 'provinces.id')
             ->join('states', 'provinces.id_state', '=', 'states.id')
             ->where('organizations.name', 'like', "%$searchTerm%")
@@ -126,10 +129,12 @@ class OrganizationController extends Controller
             ->orderBy('organizations.name')
             ->paginate(10, ['id']);
 
-        return view('organization.list',
+        return view('organization.nicelist',
             [
                 'organizations' => $organizations,
-                'searchTerm' => $searchTerm
+                'searchTerm' => $searchTerm,
+                'title' => $title,
+                'category' => 'teatros'
             ]);
     }
 
