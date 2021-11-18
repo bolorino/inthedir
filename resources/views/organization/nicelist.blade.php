@@ -12,19 +12,22 @@
                     <article class="bg-white group relative rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform duration-200">
                         <div class="relative w-full h-80 md:h-64 lg:h-44">
                             @if($organization->image)
-                                <img alt="{{ $organization->name }}" class="w-full h-full object-center object-cover" src="{{asset('storage/images/thumbnails/' . $organization->image)}}">
+                                <a href="{{ route('frontend.view', $organization->slug) }}">
+                                    <img alt="{{ $organization->name }}" class="w-full h-full object-center object-cover"
+                                         src="{{asset('storage/images/thumbnails/' . $organization->image)}}">
+                                </a>
                             @endif
                         </div>
                         <div class="px-3 py-4">
                             <h3 class="text-sm text-gray-500 pb-2">
                                 <a class="text-red-600 uppercase font-bold" href="{{ route('frontend.view', $organization->slug) }}">
-                                    <span class="absolute inset-0"></span>
                                     {{ $organization->name }}
                                 </a>
                             </h3>
                             <p class="text-base text-gray-900 group-hover:text-red-700">
                                 {{ $organization->city }}
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ \Illuminate\Support\Str::slug($organization->state) }}">
+
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $organization->state_slug }}">
                                 {{ $organization->state }}
                             </span>
                         </div>

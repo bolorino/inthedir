@@ -21,7 +21,7 @@ Route::post('/escenarios/buscar', [OrganizationController::class, 'search'])
 Route::get('/escenarios/{field}/{filter}', [OrganizationController::class, 'filter'])
     ->name('escenarios.filter');
 
-Route::get('/categoria/{slug_plural}', [OrganizationTypeController::class, 'list' ])
+Route::get('/categoria/{slug_plural}/{state?}', [OrganizationTypeController::class, 'list' ])
     ->name('categoria');
 
 /**

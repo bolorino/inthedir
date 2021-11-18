@@ -19,4 +19,9 @@ class State extends Model
     {
         return $this->hasMany(Province::class, 'id_state', 'id');
     }
+
+    public function getBySlug(string $slug)
+    {
+        return $this->firstWhere('slug', $slug);
+    }
 }

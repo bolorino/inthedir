@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Organization;
 use App\Models\OrganizationType;
 use App\Models\Province;
+use App\Models\State;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class OrganizationTypeController extends Controller
         }
     }
 
-    public function list(string $type): View|\Illuminate\Http\Response
+    public function list(string $type, string $state = null): View|\Illuminate\Http\Response
     {
         if (!$this->allowedTypes->contains('slug_plural', $type)) {
            return \response('No encontrado', 404);
@@ -42,17 +43,26 @@ class OrganizationTypeController extends Controller
             ->select(['organizations.id AS organization_id', 'province_id', 'type_id', 'organizations.name',
                 'image', 'organizations.slug', 'city',
                 'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state',
+                'states.slug AS state_slug',
                 'organization_types.id', 'organization_types.name_plural AS type_name_plural',
                 'organization_types.slug_plural AS type_slug_plural'])
             ->join('provinces', 'province_id', '=', 'provinces.id')
             ->join('states', 'provinces.id_state', '=', 'states.id')
             ->join('organization_types', 'type_id','=', 'organization_types.id')
             ->where('organization_types.slug_plural', '=', $type)
+            ->when(isset($state), function ($query) use ($state) {
+                $query->where('states.slug', '=', $state);
+            })
             ->orderBy('organizations.name')
             ->paginate(8, ['id']);
 
         $searchTerm = $this->allowedTypes->firstWhere('slug_plural', $type);
         $title = 'Listado de ' . $searchTerm['name_plural'];
+
+        if (isset($state)) {
+            $currentState = State::newModelInstance()->getBySlug($state);
+            $title .= ' de ' . $currentState->name;
+        }
 
         if (\request('page') > 1) {
             $title .= '. Página ' . \request('page');
