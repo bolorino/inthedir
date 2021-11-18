@@ -73,15 +73,15 @@ Route::group(['middleware' => ['auth', 'role:editor|super-admin']], function ()
 Route::group(['middleware' => ['auth', 'role:super-admin']], function ()
 {
     Route::get('/dashboard/roles-permissions', [RolePermissionController::class, 'roles'])->name('roles-permissions');
-    Route::get('/dashboard/role-create', 'RolePermissionController@createRole')->name('role.create');
-    Route::post('/dashboard/role-store', 'RolePermissionController@storeRole')->name('role.store');
-    Route::get('/dashboard/role-edit/{id}', 'RolePermissionController@editRole')->name('role.edit');
-    Route::put('/dashboard/role-update/{id}', 'RolePermissionController@updateRole')->name('role.update');
+    Route::get('/dashboard/role-create', [RolePermissionController::class, 'createRole'])->name('role.create');
+    Route::post('/dashboard/role-store', [RolePermissionController::class, 'storeRole'])->name('role.store');
+    Route::get('/dashboard/role-edit/{id}', [RolePermissionController::class, 'editRole'])->name('role.edit');
+    Route::put('/dashboard/role-update/{id}', [RolePermissionController::class, 'updateRole'])->name('role.update');
 
-    Route::get('/dashboard/permission-create', 'RolePermissionController@createPermission')->name('permission.create');
-    Route::post('/dashboard/permission-store', 'RolePermissionController@storePermission')->name('permission.store');
-    Route::get('/dashboard/permission-edit/{id}', 'RolePermissionController@editPermission')->name('permission.edit');
-    Route::put('/dashboard/permission-update/{id}', 'RolePermissionController@updatePermission')->name('permission.update');
+    Route::get('/dashboard/permission-create', [RolePermissionController::class, 'createPermission'])->name('permission.create');
+    Route::post('/dashboard/permission-store', [RolePermissionController::class, 'storePermission'])->name('permission.store');
+    Route::get('/dashboard/permission-edit/{id}', [RolePermissionController::class, 'editPermission'])->name('permission.edit');
+    Route::put('/dashboard/permission-update/{id}', [RolePermissionController::class, 'updatePermission'])->name('permission.update');
 
     Route::resource('/dashboard/assignrole', 'App\Http\Controllers\RoleAssign');
 
