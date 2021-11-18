@@ -155,7 +155,7 @@ class OrganizationController extends Controller
         }
 
         $organizations = Organization::query()
-            ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'slug', 'city',
+            ->select(['organizations.id AS organization_id', 'province_id', 'organizations.name', 'organizations.slug', 'city',
                 'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state'])
             ->join('provinces', 'province_id', '=', 'provinces.id')
             ->join('states', 'provinces.id_state', '=', 'states.id')
