@@ -22,17 +22,20 @@ class DatabaseSeeder extends Seeder
         $sqlDB = 'database/SQL/spain_provincias.sql';
         DB::unprepared(file_get_contents($sqlDB));
 
+        $this->call([
+            OrganizationTypeSeeder::class,
+        ]);
+
+        /* Latest organizations from backup */
         $sqlDB = 'database/SQL/inthedir_organizations.sql';
         DB::unprepared(file_get_contents($sqlDB));
 
-        /*
-        $this->call([
-            OrganizationSeeder::class,
-        ]);
-        */
-
         $this->call([
             UserSeeder::class,
+        ]);
+
+        $this->call([
+            RolesAndPermissionsSeeder::class,
         ]);
     }
 }
