@@ -63,16 +63,21 @@ class OrganizationsTable extends DataTableComponent
                     return view('organization.datatables.province', compact('row'));
                 })
                 ->addClass('p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'),
+            Column::make('Editar')
+                ->format(function ($value, $column, $row) {
+                    return view('organization.datatables.edit', compact('row'));
+                })
+                ->addClass('p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'),
+            /*
             Column::make('Comunidad atónoma', 'state')
                 ->sortable()
-                /**
-                 * @TODO Needs to sort the relation organization->province->state
-                 */
+                 // @TODO Needs to sort the relation organization->province->state
                 //->searchable()
                 ->format(function ($value, $column, $row) {
                     return view('organization.datatables.state', compact('row'));
                 })
                 ->addClass('p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell'),
+            */
         ];
     }
 
@@ -84,9 +89,9 @@ class OrganizationsTable extends DataTableComponent
         return Organization::query()
             ->select(['organizations.id AS organization_id', 'province_id', 'type_id', 'organizations.name',
                 'organizations.slug', 'city',
-                'provinces.id_state', 'provinces.province', 'states.id', 'states.name AS state'])
+                'provinces.id_state', 'provinces.province']) //  'provinces.id_state', 'provinces.province'])
             ->where('type_id', '=', '1')
-            ->join('provinces', 'province_id', '=', 'provinces.id')
-            ->join('states', 'provinces.id_state', '=', 'states.id');
+            ->join('provinces', 'province_id', '=', 'provinces.id');
+            //->join('states', 'provinces.id_state', '=', 'states.id');
     }
 }

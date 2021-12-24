@@ -1,0 +1,1 @@
+<a href="{{ route('organization.edit', $row->organization_id) }}">Editar</a>
