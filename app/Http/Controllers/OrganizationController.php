@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Str;
 
 class OrganizationController extends Controller
 {
@@ -68,7 +69,10 @@ class OrganizationController extends Controller
         }
     }
 
-    public function setAllowedFields()
+    /*
+     * Set allowed fields to filter by
+     */
+    public function setAllowedFields(): void
     {
         $this->allowedFields = [
             'province',
@@ -76,7 +80,10 @@ class OrganizationController extends Controller
         ];
     }
 
-    public function setImageTypes()
+    /*
+     * Set allowed image types and path to save
+     */
+    public function setImageTypes(): void
     {
         $this->imageTypes = [
             'image' => 'images',
@@ -193,20 +200,20 @@ class OrganizationController extends Controller
      */
     public function store(OrganizationPostRequest $request): RedirectResponse
     {
-        $this->checkFile($request, 'image');
-        $this->checkFile($request, 'logo');
+        $this->storeImage($request, 'image');
+        $this->storeImage($request, 'logo');
 
         Organization::create([
-            'name' => $request->name,
-            'province_id' => $request->province_id,
-            'type_id' => $request->type_id,
-            'address' => $request->address,
-            'address_2' => $request->address_2,
-            'city' => $request->city,
-            'postal_code' => $request->postal_code,
-            'phone' => $request->phone,
-            'website' => $request->website,
-            'email' => $request->email,
+            'name' => $request->post('name'),
+            'province_id' => $request->post('province_id'),
+            'type_id' => $request->post('type_id'),
+            'address' => $request->post('address'),
+            'address_2' => $request->post('address_2'),
+            'city' => $request->post('city'),
+            'postal_code' => $request->post('postal_code'),
+            'phone' => $request->post('phone'),
+            'website' => $request->post('website'),
+            'email' => $request->post('email'),
             'image' => $this->image,
             'logo' => $this->logo
         ]);
@@ -237,20 +244,20 @@ class OrganizationController extends Controller
         $this->image = $organization->image;
         $this->logo = $organization->logo;
 
-        $this->checkFile($request, 'image');
-        $this->checkFile($request, 'logo');
+        $this->storeImage($request, 'image');
+        $this->storeImage($request, 'logo');
 
         $organization->update([
-            'name' => $request->name,
-            'province_id' => $request->province_id,
-            'type_id' => $request->type_id,
-            'address' => $request->address,
-            'address_2' => $request->address_2,
-            'city' => $request->city,
-            'postal_code' => $request->postal_code,
-            'phone' => $request->phone,
-            'website' => $request->website,
-            'email' => $request->email,
+            'name' => $request->post('name'),
+            'province_id' => $request->post('province_id'),
+            'type_id' => $request->post('type_id'),
+            'address' => $request->post('address'),
+            'address_2' => $request->post('address_2'),
+            'city' => $request->post('city'),
+            'postal_code' => $request->post('postal_code'),
+            'phone' => $request->post('phone'),
+            'website' => $request->post('website'),
+            'email' => $request->post('email'),
             'image' => $this->image,
             'logo' => $this->logo
         ]);
@@ -259,12 +266,12 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Checks a valid image type is passed and set a proper filename
+     * Checks a valid image type is passed, set a proper filename and store it
      * @param Request $request
      * @param string $type
      * @return bool
      */
-    public function checkFile(Request $request, string $type): bool
+    public function storeImage(Request $request, string $type): bool
     {
         $this->setImageTypes();
 
@@ -272,7 +279,7 @@ class OrganizationController extends Controller
             return false;
         }
 
-        $fileName = \Str::slug($request->name);
+        $fileName = Str::slug($request->post('name'));
 
         if ($type == 'logo') {
             $fileName .= '-logo';
@@ -283,7 +290,7 @@ class OrganizationController extends Controller
             $request->file($type), $this->imageTypes[$type], $fileName . '.' . $request->file($type)->extension()
         );
 
-        // Also generate thumbnail for main image
+        // Also generate thumbnail for the main image
         if ($type == 'image') {
             saveImage(
                 $request->file($type), $this->imageTypes['thumbnail'], $fileName . '.' . $request->file($type)->extension()
@@ -294,5 +301,4 @@ class OrganizationController extends Controller
 
         return true;
     }
-
 }
