@@ -1,5 +1,5 @@
 /node_modules
-/database/SQL/organizations.sql
+/database/SQL/inthedir_organizations.sql
 /public/hot
 /public/storage
 /storage/*.key
