@@ -1,8 +1,13 @@
-<x-guest-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Teatros y espacios escénicos
         </h2>
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
     </x-slot>
 
     <div class="flex flex-col max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -14,4 +19,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+</x-app-layout>

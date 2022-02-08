@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,6 @@ class HomeController extends Controller
 
     public function approve(): View
     {
-        return view('approval');
+        return view('approval')->with('name', \Auth::user()->name);
     }
 }

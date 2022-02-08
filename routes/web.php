@@ -27,7 +27,7 @@ Route::get('/categoria/{slug_plural}/{state?}', [OrganizationTypeController::cla
 /**
  * Registration and verification
  */
-/*
+
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
@@ -43,7 +43,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', __('Enlace de verificación enviado'));
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-*/
+
 Route::get('/approval', [HomeController::class, 'approve'])->name('approval');
 
 Route::group(['middleware' => ['auth','verified', 'approved']], function ()

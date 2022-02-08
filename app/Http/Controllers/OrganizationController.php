@@ -203,6 +203,8 @@ class OrganizationController extends Controller
         $this->storeImage($request, 'image');
         $this->storeImage($request, 'logo');
 
+        // Organization::create($request->safe()->except(['image', 'logo']));
+
         Organization::create([
             'name' => $request->post('name'),
             'province_id' => $request->post('province_id'),
@@ -247,6 +249,8 @@ class OrganizationController extends Controller
         $this->storeImage($request, 'image');
         $this->storeImage($request, 'logo');
 
+        //$organization->update($request->safe()->except(['image', 'logo']));
+
         $organization->update([
             'name' => $request->post('name'),
             'province_id' => $request->post('province_id'),
@@ -262,7 +266,7 @@ class OrganizationController extends Controller
             'logo' => $this->logo
         ]);
 
-        return redirect()->route('organization.list');
+        return redirect()->route('organization.list')->with('status', 'Registro actualizado');
     }
 
     /**

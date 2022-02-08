@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\Views\Filter;
 use App\Models\Organization;
 
 class OrganizationsTable extends DataTableComponent
@@ -26,7 +27,7 @@ class OrganizationsTable extends DataTableComponent
 
     public string $defaultSortDirection = 'asc';
 
-    public array $perPageAccepted = [5,10,15,20];
+    public array $perPageAccepted = [10,20];
 
     public function setTableClass(): ?string
     {
@@ -84,14 +85,27 @@ class OrganizationsTable extends DataTableComponent
     public function query(): Builder
     {
         /**
-         * @TODO type filter
+         *
          */
         return Organization::query()
             ->select(['organizations.id AS organization_id', 'province_id', 'type_id', 'organizations.name',
                 'organizations.slug', 'city',
-                'provinces.id_state', 'provinces.province']) //  'provinces.id_state', 'provinces.province'])
-            ->where('type_id', '=', '1')
+                'provinces.id_state', 'provinces.province'])
+                ->when($this->getFilter('type'), fn(Builder $query, string $type) => $query->where('type_id', '=', $type))
             ->join('provinces', 'province_id', '=', 'provinces.id');
             //->join('states', 'provinces.id_state', '=', 'states.id');
+    }
+
+    public function filters(): array
+    {
+        return [
+            'type' => Filter::make('Tipo')
+            ->select([
+                '' => 'Todos',
+                '1' => 'Teatros',
+                '2' => 'Ayuntamientos',
+                '10' => 'Festivales'
+            ])
+        ];
     }
 }

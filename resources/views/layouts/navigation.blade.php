@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('escenarios') }}" title="{{ __('Página principal') }}">
+                    <a href="/" title="{{ __('Página principal') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
                 </div>
@@ -16,6 +16,9 @@
                         {{ __('Panel') }}
                     </x-nav-link>
                     @can('publish organizations')
+                        <x-nav-link :href="route('escenarios')" :active="request()->routeIs('escenarios')">
+                            {{ __('Registros') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('organization.create')" :active="request()->routeIs('organization.create')">
                             {{ __('Añadir nueva') }}
                         </x-nav-link>
