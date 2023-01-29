@@ -27,16 +27,18 @@ Route::get('/categoria/{slug_plural}/{state?}', [OrganizationTypeController::cla
 /**
  * Registration and verification
  */
-
+/*
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
-
+*/
+/*
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
     return redirect('/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+*/
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
